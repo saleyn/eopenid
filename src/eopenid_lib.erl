@@ -97,15 +97,9 @@ http_post(Url, Hdrs, ContentType, Body) ->
 %%%@doc Parse an nomalize the OpenID path.
 %%%     FIXME: Should be done according to ch.6 in RFC 3986.
 %%%@end
-http_path_norm("http://"++_ = Path)  -> end_slash(Path);
-http_path_norm("https://"++_ = Path) -> end_slash(Path);
-http_path_norm(Path)                 -> "http://"++end_slash(Path).
-
-end_slash(Path) ->
-    case lists:reverse(Path) of
-        "/"++_ -> Path;
-        Rev    -> lists:reverse([$/|Rev])
-    end.
+http_path_norm("http://"++_ = Path)  -> Path;
+http_path_norm("https://"++_ = Path) -> Path;
+http_path_norm(Path)                 -> "http://"++Path.
 
 %%% btwoc() in Spec
 roll(N) when is_integer(N) ->
